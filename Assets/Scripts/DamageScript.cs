@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class DamageScript : MonoBehaviour
 {
-    // Start is called before the first frame update
     public float damageAmount = 1f;
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the collided object has an "Enemy" tag
+        // Check if object has "Enemy" tag
         if (other.CompareTag("Enemy"))
         {
-            // Get the enemy's health script (you may need to replace "Health" with your actual health script)
+            //Get health script
             EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
 
-            // If the enemy has a health script, apply damage
+            //Check if enemy has health
             if (enemyHealth != null)
             {
+                //Apply damage with built in method
                 enemyHealth.TakeDamage(damageAmount);
 
-                // Destroy the projectile after hitting an enemy
+                // Destroy the projectile on contact
                 Destroy(gameObject);
             }
         }

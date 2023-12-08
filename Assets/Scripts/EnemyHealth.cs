@@ -18,18 +18,11 @@ public class EnemyHealth : MonoBehaviour
         // Reduce the enemy's health by the damage amount
         currentHealth -= damage;
 
-        // Check if the enemy is defeated
+        // Check if the enemy is dead
         if (currentHealth <= 0)
         {
-            // Call a method to handle the defeated state (e.g., play an animation, spawn effects, etc.)
-            Die();
+            //Destroy enemy
+            Destroy(gameObject);
         }
-    }
-
-    private void Die()
-    {
-        // Handle the defeated state here
-        // For example, play an animation, spawn effects, or perform any other actions
-        Destroy(gameObject); // Destroy the enemy GameObject
     }
 }

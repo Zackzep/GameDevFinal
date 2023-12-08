@@ -9,23 +9,20 @@ public class NavMash : MonoBehaviour
     private GameObject mapParent;
     private NavMeshSurface navMeshSurface;
     public GameObject towerPrefab;
-    public TowerFire towerFire; // Reference to the TowerFire script
+    public TowerFire towerFire;
 
     void Start()
     {
-        
-
-
+        //Find map parent for full map layout
         mapParent = GameObject.Find("MapParent");
 
-        if (mapParent == null)
-        {
-            Debug.LogError("MapParent not found. Make sure it's being created in the scene.");
-            return;
-        }
+        //Define navMeshSurface with mapParent(full map)
         navMeshSurface = mapParent.GetComponent<NavMeshSurface>();
+
+        //Check if theres not one yet
         if (navMeshSurface == null)
         {
+            //Tell it to add navMesh
             navMeshSurface = mapParent.AddComponent<NavMeshSurface>();
         }
 
@@ -33,40 +30,26 @@ public class NavMash : MonoBehaviour
 
         // Initially bake the NavMesh
         BakeNavMesh();
-
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //(KeyCode.B) placeholder for logic when placing towers
-        //if (Input.GetKeyDown(KeyCode.B))
-        //{
-        //BuildNavMesh();
-        //}
-
-        if (Input.GetMouseButtonDown(0)) // Change to your specific condition
+        // Check for mouse click
+        if (Input.GetMouseButtonDown(0)) 
         {
-            // Place the obstacle (you might replace this with your obstacle placement logic)
+            // Place the tower
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
-                // Instantiate the obstacle at the clicked position
+                // Instantiate the tower
                 PlaceTower(hit.point);
-                
-                
             }
-            
-
-            // Bake the NavMesh after placing the obstacle
+            //Bake after placing tower to update navmesh
             BakeNavMesh();
         }
-
-
-
     }
     
 
@@ -74,33 +57,27 @@ public class NavMash : MonoBehaviour
     {
         if (towerPrefab != null)
         {
-            // Instantiate the obstacle prefab at the specified position
-            GameObject obstacle = Instantiate(towerPrefab, position, Quaternion.identity);
+            // Instantiate the tower prefab at the specified position
+            GameObject tower = Instantiate(towerPrefab, position, Quaternion.identity);
 
-            // Optionally, you can perform additional setup or modifications to the instantiated obstacle
-            // For example, you might want to add a NavMeshObstacle component to ensure it affects the NavMesh
-            obstacle.AddComponent<NavMeshObstacle>();
+            //Add navmesh obstacle to tower to interact with navmesh on map
+            tower.AddComponent<NavMeshObstacle>();
 
-            TowerFire towerFire = obstacle.GetComponent<TowerFire>();
+            //Get towerfire script here so it can be applied on instantiation
+            TowerFire towerFire = tower.GetComponent<TowerFire>();
+
+            //Check for towerFire
             if (towerFire != null)
             {
                 // Start firing for the instantiated tower
                 towerFire.StartFiring();
-            }
-            else
-            {
-                Debug.LogError("TowerFire script not found on the tower prefab.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Obstacle prefab not assigned!");
+            } 
         }
     }
 
+    //Method to call at several points for rest of code
     void BakeNavMesh()
     {
-        // Bake the NavMesh
         navMeshSurface.BuildNavMesh();
     }
     

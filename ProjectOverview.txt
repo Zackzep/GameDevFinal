@@ -1,0 +1,27 @@
+	In my time working on this project I learned quite a bit about new methods to software development such as project layout 
+and various methods we never touched on in the program which resulted in quite a large learning experience that absolutely
+pushed my skill level even further.  I hadn't done this much work in discovering my own techniques and using new skills up
+until this point.  Given that I obviously ran into struggles along the way, but those tend to push your learning even further.
+
+	The idea for the project came to me in the days before the class began, when I was playing an older tower defense game that
+used towers as obstacles to create the most inefficient path possible, called Defense Grid.  After playing a few levels I
+couldn't help but feel the game loses it's luster once you've played levels multiple times and understand the best layout for
+tower placement.  So I came up with the idea of a randomly generating map that still held onto the core concept of making the
+enemies take the longest path you could come up with.
+
+	The general overview of the game is that a 3x3 grid of square prefabs is genrated on game load.  Then after a short delay
+giving the player time to set up some towers the enemies begin spawning at a set interval of five seconds.  At each minute mark
+the enemies increase their spawn rate up until the six minute mark where one is spawning every second.  Towers are placed with 
+their own navmesh obstacle to "break up" the navmesh baked onto the full map, and alter the route of the enemies.  Theres scripts
+ranging from tower damage, to camera movement, to enemy health and so on.
+
+	The project wan't without it's hiccups, though.  Not finding the time to import assets and put detail into the project after
+realizing the placeholder objects would have a different size and shape requiring a large setback was disappointing.  Rendering
+the physical map wasn't too difficult, but getting the navmesh so bake dynamically without causing bugs took lots of time. I had
+so many issues with the enemies interacting with things and catapulting them across the map, and getting them to use ramps well 
+required a lot of tweaking.  And the firing script took quite some time as well, such as getting the towers to fire at the 
+nearest enemy and such.  Given the delays I had in some of these parts, I was unfortunately unable to add other things I planned
+on such as different types of towers, tougher enemies at certain points, a menu, and so on.
+
+	Overall I'm very happy with the outcome despite falling short in a few areas I expected to have completed.  I learned so
+much in this process, more than I anticipated.  ANd it's always a project I can come back to and work with whenever I feel like it.
